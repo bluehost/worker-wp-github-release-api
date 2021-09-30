@@ -1,0 +1,8 @@
+name = "wp-github-release-api"
+type = "javascript"
+workers_dev = true
+account_id = ""
+zone_id = ""
+
+[vars]
+GITHUB_USER = ""
