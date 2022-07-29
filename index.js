@@ -10,9 +10,20 @@ async function handleRequest(event) {
 	const request = event.request;
 	const url = new URL(request.url);
 
+	// Check if we need to clear the cache
+	const clearCache = url.searchParams.has('clear-cache');
+
+	// Always delete the clear cache query param before setting the cache key
+	url.searchParams.delete('clear-cache');
+
 	// Construct the cache key from the cache URL
 	const cacheKey = new Request(url.toString(), request);
 	const cache = caches.default;
+
+	// Check if we need to clear the cache
+	if (clearCache) {
+		cache.delete(cacheKey);
+	}
 
 	// Check if response is in cache
 	let response = await cache.match(cacheKey);
