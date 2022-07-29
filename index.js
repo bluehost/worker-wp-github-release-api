@@ -129,7 +129,7 @@ function getDataFromRequest(request) {
 	// Set basename
 	const basename = `${ slug }/${ file }`;
 
-	const data = {
+	return {
 		basename,
 		file,
 		isDownload,
@@ -140,7 +140,6 @@ function getDataFromRequest(request) {
 		version
 	};
 
-	return data;
 }
 
 /**
