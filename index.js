@@ -236,9 +236,7 @@ async function getLatestRelease(data) {
 		throw 'No valid releases available!';
 	}
 
-	latestRelease = validReleases.shift();
-
-	return latestRelease;
+	return validReleases[0];
 }
 
 /**
