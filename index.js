@@ -207,18 +207,38 @@ async function getLatestRelease(data) {
 		throw 'No releases available!';
 	}
 
-	// Skip over releases without release assets.
-	for (release of releases) {
-		if (release.assets.length) {
-			break;
+	// Sort by date published
+	releases.sort(
+		function(a,b) {
+			return (a.published_at > b.published_at) ? -1 : ((a.published_at < b.published_at) ? 1 : 0);
 		}
+	);
+
+	const validReleases = [];
+
+	for (release of releases) {
+		// Skip over draft releases
+		if(release.draft) {
+			continue;
+		}
+		// Skip over pre-releases
+		if(release.prerelease) {
+			continue;
+		}
+		// Skip over releases without release assets.
+		if (!release.assets.length) {
+			continue;
+		}
+		validReleases.push(release);
 	}
 
-	if (!release) {
-		throw 'No releases have release assets!'
+	if(validReleases.length <= 0) {
+		throw 'No valid releases available!';
 	}
 
-	return release;
+	latestRelease = validReleases.shift();
+
+	return latestRelease;
 }
 
 /**
