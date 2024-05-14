@@ -62,7 +62,7 @@ async function handleRequest(event) {
 
 	// Force a download
 	if (data.isDownload) {
-		return Response.redirect(payload.download, 301);
+		return Response.redirect(payload.download, 302);
 	}
 
 	// Prepare response
